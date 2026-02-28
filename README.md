@@ -3,6 +3,7 @@
 FolderMonkey is a Chrome extension for developers that lets you inject JavaScript into any website — like TamperMonkey, but with proper folder structure and ES module support. Scripts live in `src/scripts/`, are built via `npm run build`, and automatically sync into the extension.
 
 **Why FolderMonkey instead of TamperMonkey?**
+
 - 📁 Organize scripts in folders instead of single giant files
 - 📦 Use ES module `import`/`export` across multiple files
 - ⚡ `npm run build` instantly syncs your code into the extension
@@ -36,27 +37,32 @@ FolderMonkey is a Chrome extension for developers that lets you inject JavaScrip
 2. Add a `config.json` to define on which sites the script runs:
    ```json
    {
-     "matches": [
-       "*://*.github.com/*",
-       "https://stackoverflow.com/*"
-     ]
+     "matches": ["*://*.github.com/*", "https://stackoverflow.com/*"]
    }
    ```
 3. Add an `index.js` as the entry point:
+
    ```javascript
-   import { doSomething } from './helpers.js';
+   import { doSomething } from "./helpers.js";
 
    console.log("My feature is running!");
    doSomething();
    ```
+
 4. Add any helper files you want to import, e.g. `helpers.js`:
    ```javascript
    export function doSomething() {
-     document.body.style.backgroundColor = 'lightblue';
+     document.body.style.backgroundColor = "lightblue";
    }
    ```
 5. Run `npm run build` — done.
 6. Hit the **Reload** icon on the extension in `chrome://extensions/`
+
+---
+
+## Using with AI Coding Agents
+
+Want an AI agent to write your script? Copy the prompt from [`AGENT_PROMPT.md`](./AGENT_PROMPT.md) and send it to your agent before you start. It will know exactly how to structure the files.
 
 ---
 
