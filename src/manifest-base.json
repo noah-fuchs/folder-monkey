@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Script Executor",
+  "name": "FolderMonkey",
   "version": "1.0",
-  "description": "Execute modular user scripts on specified domains.",
+  "description": "Inject modular JavaScript into any website. Organize scripts in folders with ES module support.",
   "action": {
     "default_popup": "popup/index.html"
   },
