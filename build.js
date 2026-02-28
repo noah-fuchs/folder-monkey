@@ -1,6 +1,7 @@
 const esbuild = require('esbuild');
 const fs = require('fs-extra');
 const path = require('path');
+const { execSync } = require('child_process');
 
 const SRC_DIR = path.join(__dirname, 'src');
 const DIST_DIR = path.join(__dirname, 'dist');
@@ -33,15 +34,30 @@ async function build() {
     if (!stat.isDirectory()) continue;
 
     console.log(`Processing script: ${dir}`);
-    const indexFile = path.join(scriptPath, 'index.js');
+    // Support both .js and .jsx entry files
+    let indexFile = path.join(scriptPath, 'index.js');
+    if (!(await fs.pathExists(indexFile))) {
+      indexFile = path.join(scriptPath, 'index.jsx');
+    }
     const configFile = path.join(scriptPath, 'config.json');
 
     if (!(await fs.pathExists(indexFile)) || !(await fs.pathExists(configFile))) {
-      console.warn(`Skipping ${dir}: index.js or config.json missing.`);
+      console.warn(`Skipping ${dir}: index.js/index.jsx or config.json missing.`);
       continue;
     }
 
     const config = await fs.readJson(configFile);
+
+    // Pre-build Tailwind CSS if styles.css exists
+    const stylesFile = path.join(scriptPath, 'styles.css');
+    const builtCssFile = path.join(scriptPath, '.styles.built.css');
+    if (await fs.pathExists(stylesFile)) {
+      console.log(`  Building Tailwind CSS for ${dir}...`);
+      execSync(`npx --yes @tailwindcss/cli -i "${stylesFile}" -o "${builtCssFile}" --minify`, {
+        cwd: scriptPath,
+        stdio: 'inherit',
+      });
+    }
 
     // Build the script
     const outFilename = `${dir}.js`;
@@ -50,8 +66,15 @@ async function build() {
       bundle: true,
       outfile: path.join(DIST_SCRIPTS_DIR, outFilename),
       format: 'iife',
-      minify: false, // Set to true for production later if desired
+      minify: false,
+      jsx: 'automatic',
+      loader: { '.css': 'text' },
     });
+
+    // Clean up temp CSS
+    if (await fs.pathExists(builtCssFile)) {
+      await fs.remove(builtCssFile);
+    }
 
     // Add to manifest
     if (config.matches && config.matches.length > 0) {
