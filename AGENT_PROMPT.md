@@ -31,5 +31,4 @@ index.js is the entry point. Use ES module imports to split logic:
   import { myHelper } from './helpers.js';
 
 Assume browser globals (document, window, fetch, etc.) are available.
-Do NOT use any bundlers or package managers.
 ```
