@@ -1,5 +1,6 @@
 const chokidar = require('chokidar');
 const { exec } = require('child_process');
+const path = require('path');
 const WebSocket = require('ws');
 
 // Setup WebSocket server
@@ -26,7 +27,8 @@ const runBuild = () => {
     isBuilding = true;
 
     console.log('🔄 Rebuilding extension...');
-    exec('npm run build', (error, stdout, stderr) => {
+    const buildScript = path.join(__dirname, 'build.js');
+    exec(`node "${buildScript}"`, (error, stdout, stderr) => {
         if (error) {
             console.error(`❌ Build error:\n${error}`);
         } else {
@@ -53,11 +55,11 @@ const runBuild = () => {
 // Initial build
 runBuild();
 
-// Watch src folder for any changes
-chokidar.watch('src', {
+// Watch user scripts folder for any changes
+chokidar.watch(path.join(process.cwd(), 'scripts'), {
     ignored: ['**/node_modules/**'],
     ignoreInitial: true
-}).on('all', (event, path) => {
-    console.log(`File ${path} has been ${event}`);
+}).on('all', (event, changedPath) => {
+    console.log(`File ${changedPath} has been ${event}`);
     runBuild();
 });

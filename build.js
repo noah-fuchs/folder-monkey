@@ -3,9 +3,12 @@ const fs = require('fs-extra');
 const path = require('path');
 const { execSync } = require('child_process');
 
-const SRC_DIR = path.join(__dirname, 'src');
-const DIST_DIR = path.join(__dirname, 'dist');
-const SCRIPTS_DIR = path.join(SRC_DIR, 'scripts');
+const CLI_DIR = __dirname;
+const USER_DIR = process.cwd();
+
+const SRC_DIR = path.join(CLI_DIR, 'src');
+const DIST_DIR = path.join(USER_DIR, 'dist');
+const SCRIPTS_DIR = path.join(USER_DIR, 'scripts');
 const DIST_SCRIPTS_DIR = path.join(DIST_DIR, 'scripts');
 
 async function build() {
@@ -27,6 +30,10 @@ async function build() {
   manifestBase.content_scripts = [];
 
   // 4. Process each script directory
+  if (!(await fs.pathExists(SCRIPTS_DIR))) {
+    console.log(`No scripts folder found at ${SCRIPTS_DIR}. Creating an empty one...`);
+    await fs.ensureDir(SCRIPTS_DIR);
+  }
   const scriptDirs = await fs.readdir(SCRIPTS_DIR);
   for (const dir of scriptDirs) {
     const scriptPath = path.join(SCRIPTS_DIR, dir);
