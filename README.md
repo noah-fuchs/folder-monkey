@@ -8,8 +8,6 @@ FolderMonkey is a Chrome extension for developers that lets you inject JavaScrip
 - 📦 Use ES module `import`/`export` across multiple files
 - ⚡ `npm run build` instantly syncs your code into the extension
 
----
-
 ## Installation
 
 1. Clone the repo and navigate into the folder:
@@ -28,8 +26,6 @@ FolderMonkey is a Chrome extension for developers that lets you inject JavaScrip
 4. Open Chrome and go to `chrome://extensions/`
 5. Enable **Developer mode** (top right corner)
 6. Click **Load unpacked** and select the `dist/` folder
-
----
 
 ## How to Create a New Script
 
@@ -58,13 +54,9 @@ FolderMonkey is a Chrome extension for developers that lets you inject JavaScrip
 5. Run `npm run build` — done.
 6. Hit the **Reload** icon on the extension in `chrome://extensions/`
 
----
-
 ## Using with AI Coding Agents
 
 Want an AI agent to write your script? Copy the prompt from [`AGENT_PROMPT.md`](./AGENT_PROMPT.md) and send it to your agent before you start. It will know exactly how to structure the files.
-
----
 
 ## Folder Structure
 
@@ -80,8 +72,6 @@ src/
 build.js              ← Build script
 dist/                 ← Generated extension (do not edit)
 ```
-
----
 
 ## License
 
