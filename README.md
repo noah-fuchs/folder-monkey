@@ -19,10 +19,15 @@ FolderMonkey is a Chrome extension for developers that lets you inject JavaScrip
    ```bash
    npm install
    ```
-3. Build the extension:
-   ```bash
-   npm run build
-   ```
+3. Build the extension or start hot-reloading development mode:
+   - For a single build:
+     ```bash
+     npm run build
+     ```
+   - For automatic hot-reloading (recommended for development):
+     ```bash
+     npm run watch
+     ```
 4. Open Chrome and go to `chrome://extensions/`
 5. Enable **Developer mode** (top right corner)
 6. Click **Load unpacked** and select the `dist/` folder
@@ -51,8 +56,8 @@ FolderMonkey is a Chrome extension for developers that lets you inject JavaScrip
      document.body.style.backgroundColor = "lightblue";
    }
    ```
-5. Run `npm run build` — done.
-6. Hit the **Reload** icon on the extension in `chrome://extensions/`
+5. Run `npm run build` (or have `npm run watch` running) — done.
+6. If using `watch` the extension and active tab will reload automatically. Otherwise, hit the **Reload** icon on the extension in `chrome://extensions/`
 
 ## Using with AI Coding Agents
 

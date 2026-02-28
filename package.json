@@ -5,14 +5,17 @@
   "main": "build.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node build.js"
+    "build": "node build.js",
+    "watch": "node watch.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
+    "chokidar": "^5.0.0",
     "esbuild": "^0.27.3",
-    "fs-extra": "^11.3.3"
+    "fs-extra": "^11.3.3",
+    "ws": "^8.19.0"
   }
 }

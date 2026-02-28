@@ -13,9 +13,12 @@ async function build() {
   // 1. Clean dist directory
   await fs.emptyDir(DIST_DIR);
 
-  // 2. Copy popup (and other static assets if any)
+  // 2. Copy popup and background script
   if (await fs.pathExists(path.join(SRC_DIR, 'popup'))) {
     await fs.copy(path.join(SRC_DIR, 'popup'), path.join(DIST_DIR, 'popup'));
+  }
+  if (await fs.pathExists(path.join(SRC_DIR, 'background.js'))) {
+    await fs.copy(path.join(SRC_DIR, 'background.js'), path.join(DIST_DIR, 'background.js'));
   }
 
   // 3. Read manifest-base.json
