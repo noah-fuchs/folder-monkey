@@ -57,7 +57,7 @@ FolderMonkey is a Chrome extension for developers that lets you inject JavaScrip
    }
    ```
 5. Run `npm run build` (or have `npm run watch` running) — done.
-6. If using `watch` the extension and active tab will reload automatically. Otherwise, hit the **Reload** icon on the extension in `chrome://extensions/`
+6. If using `watch` the extension will build and reload itself automatically. The active tab remains untouched to prevent data loss – reload the page manually (F5) to see the new script output.
 
 ## Using with AI Coding Agents
 
