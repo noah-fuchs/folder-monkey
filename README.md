@@ -59,6 +59,23 @@ FolderMonkey is a Chrome extension for developers that lets you inject JavaScrip
 5. Run `npm run build` (or have `npm run watch` running) — done.
 6. If using `watch` the extension will build and reload itself automatically. The active tab remains untouched to prevent data loss – reload the page manually (F5) to see the new script output.
 
+### Using NPM Packages
+
+You can use external NPM packages directly inside your script folders! FolderMonkey's bundler handles them automatically.
+
+1. Navigate to your script folder (e.g., `cd src/scripts/my-feature/`)
+2. Initialize and install your package:
+   ```bash
+   npm init -y
+   npm install lodash
+   ```
+3. Import it in your code as usual:
+   ```javascript
+   import _ from 'lodash';
+   
+   console.log(_.kebabCase("Hello World"));
+   ```
+
 ## Using with AI Coding Agents
 
 Want an AI agent to write your script? Copy the prompt from [`AGENT_PROMPT.md`](./AGENT_PROMPT.md) and send it to your agent before you start. It will know exactly how to structure the files.

@@ -54,7 +54,10 @@ const runBuild = () => {
 runBuild();
 
 // Watch src folder for any changes
-chokidar.watch('src', { ignoreInitial: true }).on('all', (event, path) => {
+chokidar.watch('src', {
+    ignored: ['**/node_modules/**'],
+    ignoreInitial: true
+}).on('all', (event, path) => {
     console.log(`File ${path} has been ${event}`);
     runBuild();
 });
