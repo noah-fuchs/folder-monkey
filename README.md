@@ -1,20 +1,39 @@
-# Script Executor Chrome Extension
+# 🐒 FolderMonkey
 
-This extension allows you to write modular JavaScript files that execute on specific websites. By keeping scripts organized in folders, you can import and export functions cleanly instead of writing giant, single-file scripts.
+FolderMonkey is a Chrome extension for developers that lets you inject JavaScript into any website — like TamperMonkey, but with proper folder structure and ES module support. Scripts live in `src/scripts/`, are built via `npm run build`, and automatically sync into the extension.
+
+**Why FolderMonkey instead of TamperMonkey?**
+- 📁 Organize scripts in folders instead of single giant files
+- 📦 Use ES module `import`/`export` across multiple files
+- ⚡ `npm run build` instantly syncs your code into the extension
+
+---
 
 ## Installation
 
-1. Open a terminal and navigate to the extension folder: `c:\dev\html-css-js\Extensions\script-executor`.
-2. Run `npm install` (first time only) to install the build tools.
-3. Run `npm run build` to compile the scripts.
-4. Open Google Chrome and go to `chrome://extensions/`.
-5. Enable **Developer mode** (top right corner).
-6. Click **Load unpacked** and select the `dist` folder located inside `script-executor`.
+1. Clone the repo and navigate into the folder:
+   ```bash
+   git clone https://github.com/noah-fuchs/folder-monkey.git
+   cd folder-monkey
+   ```
+2. Install build tools (first time only):
+   ```bash
+   npm install
+   ```
+3. Build the extension:
+   ```bash
+   npm run build
+   ```
+4. Open Chrome and go to `chrome://extensions/`
+5. Enable **Developer mode** (top right corner)
+6. Click **Load unpacked** and select the `dist/` folder
+
+---
 
 ## How to Create a New Script
 
-1. Create a new folder inside `src/scripts/` (e.g., `src/scripts/my-awesome-feature/`).
-2. Inside this folder, create a `config.json` file. This tells Chrome *where* the script should run:
+1. Create a new folder inside `src/scripts/` (e.g., `src/scripts/my-feature/`)
+2. Add a `config.json` to define on which sites the script runs:
    ```json
    {
      "matches": [
@@ -23,26 +42,41 @@ This extension allows you to write modular JavaScript files that execute on spec
      ]
    }
    ```
-3. Create an `index.js` file in the same folder. This is the main entry point:
+3. Add an `index.js` as the entry point:
    ```javascript
    import { doSomething } from './helpers.js';
 
-   console.log("My Awesome Feature is running!");
+   console.log("My feature is running!");
    doSomething();
    ```
-4. Create any other files you want to import, like `helpers.js`:
+4. Add any helper files you want to import, e.g. `helpers.js`:
    ```javascript
    export function doSomething() {
-       document.body.style.backgroundColor = 'lightblue';
+     document.body.style.backgroundColor = 'lightblue';
    }
    ```
-5. Run `npm run build` from the terminal.
-6. Go to `chrome://extensions/` and click the **Reload** icon on the "Script Executor" extension.
+5. Run `npm run build` — done.
+6. Hit the **Reload** icon on the extension in `chrome://extensions/`
+
+---
 
 ## Folder Structure
 
-- `src/manifest-base.json`: Base configuration for the extension.
-- `src/popup/`: HTML/JS for the extension's popup icon interface.
-- `src/scripts/`: Where you put your individual script folders.
-- `build.js`: The Node.js script that compiles everything.
-- `dist/`: The generated extension folder (do NOT edit this directly).
+```
+src/
+├── scripts/          ← Your script folders go here
+│   └── my-feature/
+│       ├── config.json
+│       ├── index.js
+│       └── helpers.js
+├── manifest-base.json
+└── popup/            ← Extension popup UI
+build.js              ← Build script
+dist/                 ← Generated extension (do not edit)
+```
+
+---
+
+## License
+
+MIT
