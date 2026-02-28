@@ -1,1 +1,1 @@
-console.log('Hello from test script!');
+console.log('hi');

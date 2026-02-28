@@ -1,7 +1,21 @@
 {
-    "name": "test-workspace",
-    "version": "1.0.0",
-    "scripts": {
-        "build": "folder-monkey build"
-    }
+  "name": "test-workspace",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node folder-monkey/build.js",
+    "watch": "node folder-monkey/watch.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "chokidar": "^5.0.0",
+    "esbuild": "^0.27.3",
+    "fs-extra": "^11.3.3",
+    "ws": "^8.19.0"
+  }
 }

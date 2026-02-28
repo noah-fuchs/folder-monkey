@@ -1,6 +1,0 @@
-{
-    "matches": [
-        "*://*.example.com/*",
-        "*://example.com/*"
-    ]
-}

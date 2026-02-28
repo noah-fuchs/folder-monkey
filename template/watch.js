@@ -56,7 +56,8 @@ const runBuild = () => {
 runBuild();
 
 // Watch user scripts folder for any changes
-chokidar.watch(path.join(process.cwd(), 'scripts'), {
+const scriptsFolder = path.join(__dirname, '..', 'scripts');
+chokidar.watch(scriptsFolder, {
     ignored: ['**/node_modules/**'],
     ignoreInitial: true
 }).on('all', (event, changedPath) => {

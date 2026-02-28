@@ -3,10 +3,9 @@ const fs = require('fs-extra');
 const path = require('path');
 const { execSync } = require('child_process');
 
-const CLI_DIR = __dirname;
-const USER_DIR = process.cwd();
+const CLI_DIR = __dirname; // This is folder-monkey/ inside the workspace
+const USER_DIR = path.join(__dirname, '..');
 
-const SRC_DIR = path.join(CLI_DIR, 'src');
 const DIST_DIR = path.join(USER_DIR, 'dist');
 const SCRIPTS_DIR = path.join(USER_DIR, 'scripts');
 const DIST_SCRIPTS_DIR = path.join(DIST_DIR, 'scripts');
@@ -18,15 +17,15 @@ async function build() {
   await fs.emptyDir(DIST_DIR);
 
   // 2. Copy popup and background script
-  if (await fs.pathExists(path.join(SRC_DIR, 'popup'))) {
-    await fs.copy(path.join(SRC_DIR, 'popup'), path.join(DIST_DIR, 'popup'));
+  if (await fs.pathExists(path.join(CLI_DIR, 'popup'))) {
+    await fs.copy(path.join(CLI_DIR, 'popup'), path.join(DIST_DIR, 'popup'));
   }
-  if (await fs.pathExists(path.join(SRC_DIR, 'background.js'))) {
-    await fs.copy(path.join(SRC_DIR, 'background.js'), path.join(DIST_DIR, 'background.js'));
+  if (await fs.pathExists(path.join(CLI_DIR, 'background.js'))) {
+    await fs.copy(path.join(CLI_DIR, 'background.js'), path.join(DIST_DIR, 'background.js'));
   }
 
   // 3. Read manifest-base.json
-  const manifestBase = await fs.readJson(path.join(SRC_DIR, 'manifest-base.json'));
+  const manifestBase = await fs.readJson(path.join(CLI_DIR, 'manifest-base.json'));
   manifestBase.content_scripts = [];
 
   // 4. Process each script directory
