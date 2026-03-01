@@ -17,7 +17,7 @@ FolderMonkey is a Chrome extension for developers that lets you inject JavaScrip
    ```
 2. Initialize FolderMonkey (this will scaffold the required files):
    ```bash
-   npx @noahfuchs/folder-monkey init
+   npx folder-monkey init
    ```
 3. Install the required build tools:
    ```bash
