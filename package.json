@@ -1,6 +1,6 @@
 {
   "name": "folder-monkey",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "TamperMonkey alternative with folder structure, ES modules, and npm build sync for developers.",
   "main": "template/build.js",
   "bin": {
