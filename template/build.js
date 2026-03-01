@@ -1,7 +1,6 @@
 const esbuild = require('esbuild');
 const fs = require('fs-extra');
 const path = require('path');
-const { execSync } = require('child_process');
 
 const CLI_DIR = __dirname; // This is folder-monkey/ inside the workspace
 const USER_DIR = path.join(__dirname, '..');
@@ -9,6 +8,35 @@ const USER_DIR = path.join(__dirname, '..');
 const DIST_DIR = path.join(USER_DIR, 'dist');
 const SCRIPTS_DIR = path.join(USER_DIR, 'scripts');
 const DIST_SCRIPTS_DIR = path.join(DIST_DIR, 'scripts');
+
+/**
+ * ESBuild plugin that processes CSS files through PostCSS + Tailwind CSS.
+ * If @tailwindcss/postcss is not installed, CSS files are passed through as-is.
+ */
+function tailwindPlugin(scriptDir) {
+  return {
+    name: 'tailwind-postcss',
+    setup(build) {
+      build.onLoad({ filter: /\.css$/ }, async (args) => {
+        const cssContent = await fs.readFile(args.path, 'utf8');
+
+        try {
+          const postcss = require('postcss');
+          const tailwind = require('@tailwindcss/postcss');
+
+          const result = await postcss([tailwind()]).process(cssContent, {
+            from: args.path,
+          });
+
+          return { contents: result.css, loader: 'text' };
+        } catch (e) {
+          // @tailwindcss/postcss not installed — return raw CSS as text
+          return { contents: cssContent, loader: 'text' };
+        }
+      });
+    },
+  };
+}
 
 async function build() {
   console.log('Starting build...');
@@ -54,18 +82,7 @@ async function build() {
 
     const config = await fs.readJson(configFile);
 
-    // Pre-build Tailwind CSS if styles.css exists
-    const stylesFile = path.join(scriptPath, 'styles.css');
-    const builtCssFile = path.join(scriptPath, '.styles.built.css');
-    if (await fs.pathExists(stylesFile)) {
-      console.log(`  Building Tailwind CSS for ${dir}...`);
-      execSync(`npx --yes @tailwindcss/cli -i "${stylesFile}" -o "${builtCssFile}" --minify`, {
-        cwd: scriptPath,
-        stdio: 'inherit',
-      });
-    }
-
-    // Build the script
+    // Build the script with Tailwind CSS plugin
     const outFilename = `${dir}.js`;
     await esbuild.build({
       entryPoints: [indexFile],
@@ -74,13 +91,8 @@ async function build() {
       format: 'iife',
       minify: false,
       jsx: 'automatic',
-      loader: { '.css': 'text' },
+      plugins: [tailwindPlugin(scriptPath)],
     });
-
-    // Clean up temp CSS
-    if (await fs.pathExists(builtCssFile)) {
-      await fs.remove(builtCssFile);
-    }
 
     // Add to manifest
     if (config.matches && config.matches.length > 0) {

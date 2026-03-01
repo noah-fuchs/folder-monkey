@@ -14,7 +14,7 @@ wss.on('connection', (ws) => {
     });
 });
 
-console.log('👀 Watching for file changes in src/ directory...');
+console.log('👀 Watching for file changes in scripts/ directory...');
 
 let isBuilding = false;
 let buildPending = false;
