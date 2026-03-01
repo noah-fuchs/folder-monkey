@@ -2,7 +2,7 @@
 
 FolderMonkey is a Chrome extension toolkit for developers that lets you inject JavaScript into any website — like TamperMonkey, but with proper folder structure, ES module support, and npm package integration.
 
-**Why FolderMonkey instead of TamperMonkey?**
+**Why FolderMonkey?**
 
 - 📁 Organize scripts in folders instead of single giant files
 - 📦 Use ES module `import`/`export` across multiple files
