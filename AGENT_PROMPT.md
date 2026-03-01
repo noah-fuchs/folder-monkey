@@ -2,12 +2,9 @@
 
 Copy and paste the following prompt to your AI coding agent when creating a new script.
 
----
-
 ## Prompt
 
-```
-You are working inside a userscript folder (e.g. my-feature/).
+folder-monkey is a userscript manager that uses a folder structure to organize scripts. You are working inside a userscript folder (e.g. my-feature/).
 Your folder must contain exactly these files:
 
 my-feature/
