@@ -10,16 +10,20 @@ FolderMonkey is a Chrome extension for developers that lets you inject JavaScrip
 
 ## Installation
 
-1. Clone the repo and navigate into the folder:
+1. Create a new empty folder for your workspace:
    ```bash
-   git clone https://github.com/noah-fuchs/folder-monkey.git
-   cd folder-monkey
+   mkdir my-scripts-workspace
+   cd my-scripts-workspace
    ```
-2. Install build tools (first time only):
+2. Initialize FolderMonkey (this will scaffold the required files):
+   ```bash
+   npx @noahfuchs/folder-monkey init
+   ```
+3. Install the required build tools:
    ```bash
    npm install
    ```
-3. Build the extension or start hot-reloading development mode:
+4. Build the extension or start hot-reloading development mode:
    - For a single build:
      ```bash
      npm run build
@@ -28,9 +32,9 @@ FolderMonkey is a Chrome extension for developers that lets you inject JavaScrip
      ```bash
      npm run watch
      ```
-4. Open Chrome and go to `chrome://extensions/`
-5. Enable **Developer mode** (top right corner)
-6. Click **Load unpacked** and select the `dist/` folder
+5. Open Chrome and go to `chrome://extensions/`
+6. Enable **Developer mode** (top right corner)
+7. Click **Load unpacked** and select the `dist/` folder
 
 ## How to Create a New Script
 

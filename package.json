@@ -1,8 +1,8 @@
 {
   "name": "folder-monkey",
   "version": "1.0.0",
-  "description": "",
-  "main": "build.js",
+  "description": "TamperMonkey alternative with folder structure, ES modules, and npm build sync for developers.",
+  "main": "template/build.js",
   "bin": {
     "folder-monkey": "./bin/cli.js"
   },
@@ -11,9 +11,22 @@
     "build": "node build.js",
     "watch": "node watch.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "chrome-extension",
+    "tampermonkey",
+    "build-tool",
+    "userscript"
+  ],
+  "author": "noahfuchs",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/noah-fuchs/folder-monkey.git"
+  },
+  "files": [
+    "bin/",
+    "template/"
+  ],
   "type": "commonjs",
   "dependencies": {
     "chokidar": "^5.0.0",
