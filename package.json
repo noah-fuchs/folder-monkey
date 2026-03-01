@@ -4,7 +4,7 @@
   "description": "TamperMonkey alternative with folder structure, ES modules, and npm build sync for developers.",
   "main": "template/build.js",
   "bin": {
-    "folder-monkey": "./bin/cli.js"
+    "folder-monkey": "bin/cli.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -21,7 +21,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/noah-fuchs/folder-monkey.git"
+    "url": "git+https://github.com/noah-fuchs/folder-monkey.git"
   },
   "files": [
     "bin/",
